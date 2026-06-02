@@ -1,0 +1,65 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Developer - {{ block.super }}{% endblock %}
+{% block description %}Meet the developer behind this website — MD ABU SALEHIN, a web developer and system architect passionate about building digital solutions for education.{% endblock %}
+{% block og_title %}Meet the Developer — {{ block.super }}{% endblock %}
+{% block og_description %}This website was proudly developed by MD ABU SALEHIN. Learn more about the developer and his work.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-code"></i> Developer</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / Developer
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+            <div style="width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 28px; background: linear-gradient(135deg, var(--navy), var(--navy-dark)); border: 4px solid var(--gold); overflow: hidden; box-shadow: 0 0 50px var(--gold-glow);">
+                {% if dev and dev.image_url %}
+                <img src="{{ dev.image_url }}" alt="{{ dev.name }}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+                {% endif %}
+                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;{% if dev and dev.image_url %}display:none{% endif %}">
+                    <i class="fas fa-user-circle" style="font-size:4rem; color:var(--gold);"></i>
+                </div>
+            </div>
+
+            <h2 style="font-size:2rem; margin-bottom:6px;">{{ dev.name|default:"MD ABU SALEHIN" }}</h2>
+            <p style="font-family:var(--font-sans); color:var(--gold-dark); font-weight:500; text-transform:uppercase; letter-spacing:2px; font-size:0.85rem; margin-bottom:20px;">
+                <i class="fas fa-laptop-code"></i> {{ dev.title|default:"Web Developer & System Architect" }}
+            </p>
+
+            <div style="max-width:550px; margin:0 auto 36px; font-family:var(--font-sans); color:var(--text-light); line-height:1.8; font-size:0.95rem;">
+                {% if dev and dev.description %}
+                <p>{{ dev.description }}</p>
+                {% else %}
+                <p>This website was built with dedication and care to honor the legacy of My School <strong>Bindu Basini Government Boys' High School</strong>. Every line of code was written to reflect the institution's rich heritage, academic excellence, and commitment to nurturing young minds since 1880.</p>
+                <p style="margin-top:16px;">I believe in technology as a force for good — creating digital experiences that are elegant, accessible, and meaningful. This project represents my humble contribution to education and community.</p>
+                {% endif %}
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+                {% if dev and dev.portfolio_url %}
+                <a href="{{ dev.portfolio_url }}" target="_blank" rel="noopener" class="btn btn-gold">
+                    <i class="fas fa-external-link-alt"></i> Visit Portfolio
+                </a>
+                {% endif %}
+                <a href="mailto:mdsalehin11829@gmail.com" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt" style="padding-top:40px; padding-bottom:40px;">
+    <div class="container" style="text-align:center; font-family:var(--font-sans); font-size:0.82rem; color:var(--text-light);">
+        <i class="fas fa-heart" style="color:var(--gold); margin-right:4px;"></i>
+        Made with respect for education, heritage, and the future of Bangladesh.
+    </div>
+</section>
+{% endblock %}

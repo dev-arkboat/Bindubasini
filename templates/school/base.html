@@ -5,7 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Bindu Basini Government Boys' High School{% endblock %}</title>
+    <meta name="description" content="{% block description %}Bindu Basini Government Boys' High School, Tangail — Established 1880. A historic institution nurturing young minds with academic excellence, cultural heritage, and holistic development in Bangladesh.{% endblock %}">
+    <meta name="keywords" content="Bindu Basini, Bindu Basini School, Tangail School, Government Boys High School Tangail, Bindubasini, School in Tangail, Best School Tangail, Bangladesh School">
+    <meta name="author" content="Bindu Basini Government Boys' High School">
+    <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="bYPFw2-Xf4Dm0J793JEX0R0Uvc0v5Y5JIdMgFtBsLpQ" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Bindu Basini Government Boys' High School{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Established in 1880, Bindu Basini Government Boys' High School in Tangail, Bangladesh — a legacy of academic excellence and holistic education.{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/logo-placeholder.png' %}{% endblock %}">
+    <meta property="og:site_name" content="Bindu Basini Government Boys' High School">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bindu Basini Government Boys' High School">
+    <meta name="twitter:description" content="Established in 1880, Bindu Basini Government Boys' High School in Tangail, Bangladesh.">
+    <meta name="twitter:image" content="{% static 'images/logo-placeholder.png' %}">
+
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo-placeholder.png' %}">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "School",
+        "name": "Bindu Basini Government Boys' High School",
+        "alternateName": "বিন্দুবাসিনী সরকারি বালক উচ্চ বিদ্যালয়",
+        "description": "Established in 1880, Bindu Basini Government Boys' High School is a historic secondary school in Tangail, Bangladesh.",
+        "foundingDate": "1880-04-03",
+        "founder": "Rani Bindubasini Roy Chowdhurany",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Kazi Nazrul Islam Sarani, Nirala Mor",
+            "addressLocality": "Tangail",
+            "postalCode": "1900",
+            "addressCountry": "BD"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 24.25068,
+            "longitude": 89.913479
+        },
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "telephone": "{{ school_info.phone|default:'N/A' }}",
+        "email": "{{ school_info.email|default:'N/A' }}",
+        "numberOfStudents": "1800",
+        "numberOfEmployees": "50",
+        "slogan": "শিক্ষাই আলো — Education is Light",
+        "sameAs": [
+            "https://bn.wikipedia.org/wiki/বিন্দুবাসিনী_সরকারি_বালক_উচ্চ_বিদ্যালয়",
+            "https://en.wikipedia.org/wiki/Bindu_Basini_Govt._Boys%27_High_School"
+        ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -31,7 +86,7 @@
             <div class="header-left">
                 <div class="logo-wrapper">
                     <div class="logo-placeholder">
-                        <img src="{% static 'images/logo-placeholder.png' %}" alt="School Logo" class="logo-img" onerror="this.style.display='none'">
+                        <img src="{% static 'images/logo-placeholder.png' %}" alt="Bindu Basini School Logo" class="logo-img" onerror="this.style.display='none'">
                         <div class="logo-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
@@ -54,8 +109,8 @@
                 <li><a href="{% url 'teachers' %}" class="{% if '/teachers' in request.path %}active{% endif %}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
                 <li><a href="{% url 'headmasters' %}" class="{% if '/headmasters' in request.path %}active{% endif %}"><i class="fas fa-user-tie"></i> Headmasters</a></li>
                 <li><a href="{% url 'notices' %}" class="{% if '/notices' in request.path %}active{% endif %}"><i class="fas fa-bullhorn"></i> Notices</a></li>
+                <li><a href="{% url 'clubs' %}" class="{% if '/clubs' in request.path %}active{% endif %}"><i class="fas fa-users"></i> Clubs</a></li>
                 <li><a href="{% url 'alumni' %}" class="{% if '/alumni' in request.path %}active{% endif %}"><i class="fas fa-graduation-cap"></i> Alumni</a></li>
-                <li><a href="{% url 'facilities' %}" class="{% if '/facilities' in request.path %}active{% endif %}"><i class="fas fa-building"></i> Facilities</a></li>
                 <li><a href="{% url 'achievements' %}" class="{% if '/achievements' in request.path %}active{% endif %}"><i class="fas fa-trophy"></i> Achievements</a></li>
                 <li><a href="{% url 'contact' %}" class="{% if '/contact' in request.path %}active{% endif %}"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
@@ -76,6 +131,11 @@
 
         {% block content %}{% endblock %}
     </main>
+
+    <a href="https://live.academyims.com/Student_Portal" class="payment-float" id="paymentFloat" target="_blank" rel="noopener" aria-label="Make a payment">
+        <i class="fas fa-credit-card"></i>
+        <span>Pay</span>
+    </a>
 
     <footer class="site-footer">
         <div class="container">
@@ -98,8 +158,9 @@
                         <li><a href="{% url 'about' %}"><i class="fas fa-chevron-right"></i> About Us</a></li>
                         <li><a href="{% url 'teachers' %}"><i class="fas fa-chevron-right"></i> Our Teachers</a></li>
                         <li><a href="{% url 'notices' %}"><i class="fas fa-chevron-right"></i> Notices</a></li>
+                        <li><a href="{% url 'clubs' %}"><i class="fas fa-chevron-right"></i> Clubs</a></li>
                         <li><a href="{% url 'alumni' %}"><i class="fas fa-chevron-right"></i> Notable Alumni</a></li>
-                        <li><a href="{% url 'facilities' %}"><i class="fas fa-chevron-right"></i> Facilities</a></li>
+                        <li><a href="{% url 'developer' %}"><i class="fas fa-code"></i> Developer</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -115,7 +176,7 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; {% now "Y" %} {{ school_info.name_en|default:"Bindu Basini Government Boys' High School" }}. All rights reserved.</p>
-                <p class="footer-eiin">EIIN: {{ school_info.eiin|default:"114680" }}</p>
+                <p class="footer-eiin">EIIN: {{ school_info.eiin|default:"114680" }} &middot; <a href="{% url 'developer' %}" style="color:var(--gold);">Developed by MD ABU SALEHIN</a></p>
             </div>
         </div>
     </footer>

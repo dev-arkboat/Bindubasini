@@ -1,0 +1,51 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Clubs - {{ block.super }}{% endblock %}
+{% block description %}Explore the vibrant clubs and co-curricular activities at Bindu Basini Government Boys' High School, Tangail — from debate and science to sports and culture.{% endblock %}
+{% block og_title %}Clubs & Activities — {{ block.super }}{% endblock %}
+{% block og_description %}Discover the diverse clubs at Bindu Basini Government Boys' High School — fostering talent, leadership, and holistic development.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-users"></i> Our Clubs</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / Clubs
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Co-Curricular Clubs</h2>
+            <div class="title-ornament"></div>
+            <p>Beyond the classroom — discover passions, build skills, and forge lifelong bonds</p>
+        </div>
+        {% if clubs %}
+        <div class="grid grid-3">
+            {% for club in clubs %}
+            <div class="card" style="text-align:center;">
+                <div style="padding:32px 24px;">
+                    {% if club.icon %}
+                    <i class="{{ club.icon }}" style="font-size:3rem; color:var(--gold); margin-bottom:16px;"></i>
+                    {% else %}
+                    <i class="fas fa-users" style="font-size:3rem; color:var(--gold); margin-bottom:16px;"></i>
+                    {% endif %}
+                    <h3>{{ club.name }}</h3>
+                    {% if club.description %}<p style="font-family:var(--font-sans); font-size:0.9rem; color:var(--text-light); margin-top:8px;">{{ club.description }}</p>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:80px 20px;">
+            <i class="fas fa-users" style="font-size:4rem; color:var(--gold); margin-bottom:20px; opacity:0.5;"></i>
+            <h3>Club Information Coming Soon</h3>
+            <p style="font-family:var(--font-sans); color:var(--text-light);">We are updating our club and activity listings. Please check back later.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

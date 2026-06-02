@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Teacher, Headmaster, Alumni, AboutInfo, SchoolInfo, Subject, Facility, SchoolBuilding, Achievement
+from .models import Teacher, Headmaster, Alumni, AboutInfo, SchoolInfo, Subject, Club, SchoolBuilding, Achievement, DeveloperInfo
 from notice.models import Notice
 
 
@@ -9,14 +9,14 @@ def home(request):
     headmasters = Headmaster.objects.filter(is_current=True)
     notices = Notice.objects.filter(is_published=True)[:5]
     achievements = Achievement.objects.all()[:6]
-    facilities = Facility.objects.all()[:6]
+    clubs = Club.objects.all()[:6]
     alumni_list = Alumni.objects.all()[:6]
     context = {
         'teachers': teachers,
         'headmasters': headmasters,
         'notices': notices,
         'achievements': achievements,
-        'facilities': facilities,
+        'clubs': clubs,
         'alumni_list': alumni_list,
     }
     return render(request, 'school/home.html', context)
@@ -67,10 +67,16 @@ def notices(request):
     return render(request, 'school/notices.html', context)
 
 
-def facilities(request):
-    all_facilities = Facility.objects.all()
-    context = {'facilities': all_facilities}
-    return render(request, 'school/facilities.html', context)
+def clubs(request):
+    all_clubs = Club.objects.all()
+    context = {'clubs': all_clubs}
+    return render(request, 'school/clubs.html', context)
+
+
+def developer(request):
+    dev = DeveloperInfo.objects.filter(is_active=True).first()
+    context = {'dev': dev}
+    return render(request, 'school/developer.html', context)
 
 
 def contact(request):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teacher, Headmaster, Alumni, AboutInfo, SchoolInfo, ContactMessage, Subject, Facility, SchoolBuilding, Achievement
+from .models import Teacher, Headmaster, Alumni, AboutInfo, SchoolInfo, ContactMessage, Subject, Club, SchoolBuilding, Achievement, DeveloperInfo
 
 
 @admin.register(Teacher)
@@ -64,10 +64,16 @@ class SubjectAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-@admin.register(Facility)
-class FacilityAdmin(admin.ModelAdmin):
+@admin.register(Club)
+class ClubAdmin(admin.ModelAdmin):
     list_display = ['name', 'order']
     list_editable = ['order']
+
+
+@admin.register(DeveloperInfo)
+class DeveloperInfoAdmin(admin.ModelAdmin):
+    list_display = ['name', 'title', 'is_active']
+    list_editable = ['is_active']
 
 
 @admin.register(SchoolBuilding)

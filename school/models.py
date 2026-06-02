@@ -125,16 +125,16 @@ class Subject(models.Model):
         return self.name
 
 
-class Facility(models.Model):
+class Club(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     icon = models.CharField(max_length=100, blank=True, help_text="Font Awesome icon class (e.g. 'fas fa-book')")
-    image = models.ImageField(upload_to='facilities/', blank=True, null=True)
+    image = models.ImageField(upload_to='clubs/', blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['order']
-        verbose_name_plural = "Facilities"
+        verbose_name_plural = "Clubs"
 
     def __str__(self):
         return self.name
@@ -164,3 +164,18 @@ class Achievement(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.year})" if self.year else self.title
+
+
+class DeveloperInfo(models.Model):
+    name = models.CharField(max_length=200, default="MD ABU SALEHIN")
+    title = models.CharField(max_length=300, default="Web Developer & System Architect")
+    description = models.TextField(blank=True, help_text="Short bio for the developer page")
+    portfolio_url = models.URLField(default="https://mdsalehin.pro.bd/")
+    image_url = models.URLField(default="https://mdsalehin.pro.bd/me.jpg")
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = "Developer Info"
+
+    def __str__(self):
+        return self.name
