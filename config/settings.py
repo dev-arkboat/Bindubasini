@@ -109,10 +109,10 @@ if not _disable_s3:
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     STORAGES = {
         'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
-        'staticfiles': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
+        'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
     }
     MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
-    STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/static/'
+    STATIC_URL = f'/static/'
 else:
     STORAGES = {
         'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
