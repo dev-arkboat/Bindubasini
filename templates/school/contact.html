@@ -1,0 +1,93 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / Contact
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <div class="title-ornament"></div>
+            <p>We'd love to hear from you. Send us a message or visit our campus.</p>
+        </div>
+        <div class="contact-section">
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Your Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-control" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject"><i class="fas fa-tag"></i> Subject *</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required placeholder="What is this about?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Message *</label>
+                        <textarea id="message" name="message" class="form-control" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <div style="background:var(--cream); border-radius:var(--radius); padding:32px; border:1px solid var(--border);">
+                    <h3 style="margin-bottom:24px;"><i class="fas fa-map-pin" style="color:var(--gold);"></i> Our Location</h3>
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>{{ school_info.address|default:"Kazi Nazrul Islam Sarani, Nirala Mor, Tangail, Bangladesh" }}</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>{{ school_info.phone|default:"N/A" }}</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>{{ school_info.email|default:"N/A" }}</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <h4>Website</h4>
+                            <p>{{ school_info.website|default:"bindubashinigovboysschool.edu.bd" }}</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div>
+                            <h4>Established</h4>
+                            <p>{{ school_info.established_year|default:"1880" }} &middot; EIIN: {{ school_info.eiin|default:"114680" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

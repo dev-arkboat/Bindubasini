@@ -1,0 +1,137 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}About Us - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-info-circle"></i> About Our School</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / About
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our History & Heritage</h2>
+            <div class="title-ornament"></div>
+            <p>A journey of excellence since 1880</p>
+        </div>
+        <div class="grid grid-2">
+            <div>
+                <h3 style="margin-bottom:16px;">A Legacy of Learning</h3>
+                <p style="font-size:1.05rem; line-height:1.9; margin-bottom:16px;">Established on April 3, 1880, Bindu Basini Government Boys' High School began its journey as Graham English High School. Named after the then Deputy Magistrate of Mymensingh, Harold Graham, the school was founded by education enthusiasts and government officials who envisioned a center of academic excellence in Tangail.</p>
+                <p style="font-size:1.05rem; line-height:1.9; margin-bottom:16px;">In 1887, Rani Bindubasini Roy Chowdhurany took over the school's operational costs, and the school was renamed in her honor. Her sons, zamindars Pramathanath Roy Chowdhury and Sir Manmathanath Roy Chowdhury, donated lands for the school's permanent campus.</p>
+                <p style="font-size:1.05rem; line-height:1.9;">The school was nationalized on February 1, 1970, and has since grown to become one of Bangladesh's most prestigious secondary educational institutions.</p>
+            </div>
+            <div>
+                <div style="background:linear-gradient(135deg, var(--cream), var(--border)); border-radius:var(--radius); padding:40px; text-align:center; border:1px solid var(--border); height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <i class="fas fa-school" style="font-size:5rem; color:var(--gold); margin-bottom:20px;"></i>
+                    <h3 style="margin-bottom:8px;">{{ school_info.name_en|default:"Bindu Basini Government Boys' High School" }}</h3>
+                    <p style="font-family:var(--font-sans); color:var(--text-light);"><i class="fas fa-map-marker-alt" style="color:var(--gold);"></i> {{ school_info.address|default:"Kazi Nazrul Islam Sarani, Nirala Mor, Tangail" }}</p>
+                    <p style="font-family:var(--font-sans); color:var(--text-light);"><i class="fas fa-calendar-alt" style="color:var(--gold);"></i> Established: {{ school_info.established_year|default:"1880" }} &middot; EIIN: {{ school_info.eiin|default:"114680" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Mission & Values</h2>
+            <div class="title-ornament"></div>
+        </div>
+        <div class="grid grid-3">
+            <div class="card" style="text-align:center;">
+                <div class="card-body">
+                    <i class="fas fa-lightbulb" style="font-size:2.5rem; color:var(--gold); margin-bottom:12px;"></i>
+                    <h3>Our Motto</h3>
+                    <p>"{{ school_info.motto|default:'শিক্ষাই আলো — Education is Light' }}" — We believe education illuminates minds and transforms lives.</p>
+                </div>
+            </div>
+            <div class="card" style="text-align:center;">
+                <div class="card-body">
+                    <i class="fas fa-eye" style="font-size:2.5rem; color:var(--gold); margin-bottom:12px;"></i>
+                    <h3>Our Vision</h3>
+                    <p>To be a leading institution that nurtures academically excellent, morally upright, and socially responsible global citizens.</p>
+                </div>
+            </div>
+            <div class="card" style="text-align:center;">
+                <div class="card-body">
+                    <i class="fas fa-bullseye" style="font-size:2.5rem; color:var(--gold); margin-bottom:12px;"></i>
+                    <h3>Our Mission</h3>
+                    <p>To provide quality education through dedicated teaching, modern facilities, and a nurturing environment that fosters holistic development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if about_sections %}
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>More About Us</h2>
+            <div class="title-ornament"></div>
+        </div>
+        {% for section in about_sections %}
+        <div style="margin-bottom:32px;">
+            <h3>{{ section.title }}</h3>
+            <div style="font-size:1.05rem; line-height:1.9; margin-top:12px;">{{ section.content|linebreaks }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="section section-bg">
+    <div class="container">
+        <div class="section-title">
+            <h2>School Buildings</h2>
+            <div class="title-ornament"></div>
+        </div>
+        <div class="grid grid-3">
+            {% for building in buildings %}
+            <div class="card" style="text-align:center;">
+                <div class="card-image">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="card-body">
+                    <h3>{{ building.name }}</h3>
+                    {% if building.description %}<p>{{ building.description }}</p>{% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div style="grid-column:1/-1; text-align:center; padding:40px; font-family:var(--font-sans); color:var(--text-light);">
+                <p>Building information coming soon.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Subjects Offered</h2>
+            <div class="title-ornament"></div>
+        </div>
+        <div class="grid grid-4">
+            {% for subject in subjects %}
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-book-open" style="font-size:1.8rem; color:var(--gold); margin-bottom:8px;"></i>
+                <h4 style="font-size:1rem;">{{ subject.name }}</h4>
+            </div>
+            {% empty %}
+            <div style="grid-column:1/-1; text-align:center; padding:40px; font-family:var(--font-sans); color:var(--text-light);">
+                <p>Subject information coming soon.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

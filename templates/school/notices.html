@@ -1,0 +1,106 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Notices - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-bullhorn"></i> Notices & Circulars</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / <span>Notices</span>
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Latest Announcements</h2>
+            <div class="title-ornament"></div>
+            <p>Stay informed with all official notices, circulars, and updates from the school administration</p>
+        </div>
+
+        {% if important_notices %}
+        <div style="margin-bottom:48px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                <span style="display:inline-flex; align-items:center; gap:8px; padding:6px 20px; background:linear-gradient(135deg, var(--gold), var(--gold-dark)); border-radius:30px; color:var(--white); font-family:var(--font-sans); font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;">
+                    <i class="fas fa-star"></i> Important
+                </span>
+                <span style="font-family:var(--font-sans); font-size:0.85rem; color:var(--text-light);">{{ important_notices|length }} notice{{ important_notices|length|pluralize:"s" }}</span>
+            </div>
+            {% for notice in important_notices %}
+            <div class="notice-card important">
+                <div class="notice-sidebar">
+                    <span class="notice-day">{{ notice.publish_date|date:"d" }}</span>
+                    <span class="notice-month">{{ notice.publish_date|date:"M" }}</span>
+                    <span class="notice-year">{{ notice.publish_date|date:"Y" }}</span>
+                </div>
+                <div class="notice-body">
+                    <div class="notice-icon-badge">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="notice-content">
+                        <span class="notice-badge"><i class="fas fa-star"></i> Important Notice</span>
+                        <h3>{{ notice.title }}</h3>
+                        <p class="notice-meta"><i class="fas fa-tag"></i> {{ notice.category.name|default:"General" }} &middot; <i class="fas fa-calendar-alt"></i> {{ notice.publish_date|date:"d M Y" }}</p>
+                        {% if notice.content %}<p>{{ notice.content|linebreaks }}</p>{% endif %}
+                        {% if notice.file %}
+                        <div class="notice-actions">
+                            <a href="{{ notice.file.url }}" class="btn btn-gold btn-sm" target="_blank"><i class="fas fa-download"></i> Download Attachment</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if general_notices %}
+        <div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                <span style="display:inline-flex; align-items:center; gap:8px; padding:6px 20px; background:linear-gradient(135deg, var(--navy-light), var(--navy)); border-radius:30px; color:var(--gold-light); font-family:var(--font-sans); font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;">
+                    <i class="fas fa-file-alt"></i> General
+                </span>
+                <span style="font-family:var(--font-sans); font-size:0.85rem; color:var(--text-light);">{{ general_notices|length }} notice{{ general_notices|length|pluralize:"s" }}</span>
+            </div>
+            {% for notice in general_notices %}
+            <div class="notice-card">
+                <div class="notice-sidebar">
+                    <span class="notice-day">{{ notice.publish_date|date:"d" }}</span>
+                    <span class="notice-month">{{ notice.publish_date|date:"M" }}</span>
+                    <span class="notice-year">{{ notice.publish_date|date:"Y" }}</span>
+                </div>
+                <div class="notice-body">
+                    <div class="notice-icon-badge">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="notice-content">
+                        <h3>{{ notice.title }}</h3>
+                        <p class="notice-meta"><i class="fas fa-tag"></i> {{ notice.category.name|default:"General" }} &middot; <i class="fas fa-calendar-alt"></i> {{ notice.publish_date|date:"d M Y" }}</p>
+                        {% if notice.content %}<p>{{ notice.content|truncatewords:50 }}</p>{% endif %}
+                        {% if notice.file %}
+                        <div class="notice-actions">
+                            <a href="{{ notice.file.url }}" class="btn btn-outline btn-sm" target="_blank"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if not important_notices and not general_notices %}
+        <div style="text-align:center; padding:100px 20px;">
+            <div style="width:100px;height:100px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+                <i class="fas fa-inbox" style="font-size:3rem; color:var(--gold); opacity:0.5;"></i>
+            </div>
+            <h3>No Notices Published Yet</h3>
+            <p style="font-family:var(--font-sans); color:var(--text-light); max-width:400px; margin:8px auto 0;">There are no notices at this time. Please check back later for updates and announcements.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

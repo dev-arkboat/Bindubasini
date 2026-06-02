@@ -1,0 +1,52 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Notable Alumni - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1><i class="fas fa-graduation-cap"></i> Notable Alumni</h1>
+        <div class="breadcrumb">
+            <a href="{% url 'home' %}">Home</a> / Alumni
+        </div>
+    </div>
+</section>
+
+<section class="section section-bg-alt">
+    <div class="container">
+        <div class="section-title">
+            <h2>Distinguished Graduates</h2>
+            <div class="title-ornament"></div>
+            <p>Our alumni have excelled in diverse fields — from politics and literature to science and sports</p>
+        </div>
+        {% if alumni %}
+        <div class="grid grid-3">
+            {% for alum in alumni %}
+            <div class="card alumni-card">
+                <div class="alumni-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="card-body">
+                    <h3>{{ alum.name }}</h3>
+                    {% if alum.class_year %}<p class="batch"><i class="fas fa-calendar-alt" style="color:var(--gold);margin-right:4px;"></i> {{ alum.class_year }}</p>{% endif %}
+                    {% if alum.notability %}
+                    <p class="notability" style="margin-top:8px;">{{ alum.notability }}</p>
+                    {% endif %}
+                    {% if alum.reference_link %}
+                    <a href="{{ alum.reference_link }}" target="_blank" style="font-size:0.8rem; font-family:var(--font-sans);" class="btn btn-outline" style="margin-top:8px; padding:6px 16px; font-size:0.75rem;"><i class="fas fa-external-link-alt"></i> Learn More</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:80px 20px;">
+            <i class="fas fa-graduation-cap" style="font-size:4rem; color:var(--gold); margin-bottom:20px; opacity:0.5;"></i>
+            <h3>Alumni Directory Coming Soon</h3>
+            <p style="font-family:var(--font-sans); color:var(--text-light);">We are gathering information about our notable alumni. Please check back later.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

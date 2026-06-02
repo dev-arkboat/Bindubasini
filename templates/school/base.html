@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bindu Basini Government Boys' High School{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="container">
+            <span><i class="fas fa-phone-alt"></i> {{ school_info.phone|default:"N/A" }}</span>
+            <span><i class="fas fa-envelope"></i> {{ school_info.email|default:"N/A" }}</span>
+            <span class="announcement-motto"><i class="fas fa-lightbulb"></i> {{ school_info.motto|default:"শিক্ষাই আলো — Education is Light" }}</span>
+        </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <div class="logo-placeholder">
+                        <img src="{% static 'images/logo-placeholder.png' %}" alt="School Logo" class="logo-img" onerror="this.style.display='none'">
+                        <div class="logo-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="school-names">
+                    <h1 class="school-name-bn">{{ school_info.name_bn|default:"বিন্দুবাসিনী সরকারি বালক উচ্চ বিদ্যালয়" }}</h1>
+                    <h2 class="school-name-en">{{ school_info.name_en|default:"Bindu Basini Government Boys' High School" }}</h2>
+                    <p class="school-address"><i class="fas fa-map-marker-alt"></i> {{ school_info.address|default:"Kazi Nazrul Islam Sarani, Nirala Mor, Tangail, Bangladesh" }}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav" id="mainNav">
+        <div class="container nav-container">
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{% url 'about' %}" class="{% if '/about' in request.path %}active{% endif %}"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="{% url 'teachers' %}" class="{% if '/teachers' in request.path %}active{% endif %}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+                <li><a href="{% url 'headmasters' %}" class="{% if '/headmasters' in request.path %}active{% endif %}"><i class="fas fa-user-tie"></i> Headmasters</a></li>
+                <li><a href="{% url 'notices' %}" class="{% if '/notices' in request.path %}active{% endif %}"><i class="fas fa-bullhorn"></i> Notices</a></li>
+                <li><a href="{% url 'alumni' %}" class="{% if '/alumni' in request.path %}active{% endif %}"><i class="fas fa-graduation-cap"></i> Alumni</a></li>
+                <li><a href="{% url 'facilities' %}" class="{% if '/facilities' in request.path %}active{% endif %}"><i class="fas fa-building"></i> Facilities</a></li>
+                <li><a href="{% url 'achievements' %}" class="{% if '/achievements' in request.path %}active{% endif %}"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="{% url 'contact' %}" class="{% if '/contact' in request.path %}active{% endif %}"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        {% if messages %}
+        <div class="container" style="margin-top: 24px;">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <i class="fas fa-check-circle"></i> {{ message }}
+                <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>{{ school_info.name_en|default:"Bindu Basini Govt. Boys' High School" }}</span>
+                    </div>
+                    <p class="footer-desc">{{ school_info.about_short|default:"Established in 1880, Bindu Basini Government Boys' High School is one of the oldest and most prestigious educational institutions in Bangladesh." }}</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'about' %}"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="{% url 'teachers' %}"><i class="fas fa-chevron-right"></i> Our Teachers</a></li>
+                        <li><a href="{% url 'notices' %}"><i class="fas fa-chevron-right"></i> Notices</a></li>
+                        <li><a href="{% url 'alumni' %}"><i class="fas fa-chevron-right"></i> Notable Alumni</a></li>
+                        <li><a href="{% url 'facilities' %}"><i class="fas fa-chevron-right"></i> Facilities</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> {{ school_info.address|default:"Kazi Nazrul Islam Sarani, Nirala Mor, Tangail" }}</li>
+                        <li><i class="fas fa-phone-alt"></i> {{ school_info.phone|default:"N/A" }}</li>
+                        <li><i class="fas fa-envelope"></i> {{ school_info.email|default:"N/A" }}</li>
+                        <li><i class="fas fa-globe"></i> {{ school_info.website|default:"www.bindubashinigovboysschool.edu.bd" }}</li>
+                        <li><i class="fas fa-calendar-alt"></i> Established: {{ school_info.established_year|default:"1880" }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} {{ school_info.name_en|default:"Bindu Basini Government Boys' High School" }}. All rights reserved.</p>
+                <p class="footer-eiin">EIIN: {{ school_info.eiin|default:"114680" }}</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
